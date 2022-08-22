@@ -9,6 +9,7 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import GoogleIcon from '@mui/icons-material/Google';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Copyright from 'components/login/Copyright';
@@ -76,6 +77,15 @@ export default function SignIn() {
               sx={{ mt: 3, mb: 2 }}
             >
               Sign In
+            </Button>
+            <Button
+              type='submit'
+              fullWidth
+              variant='outlined'
+              startIcon={<GoogleIcon />}
+              sx={{ mb: 2 }}
+            >
+              Sign in with Google
             </Button>
             <Grid container>
               <Grid item xs>
