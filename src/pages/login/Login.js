@@ -13,6 +13,8 @@ import GoogleIcon from '@mui/icons-material/Google'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import Copyright from 'components/login/Copyright'
+import { firebaseAuth } from 'firebase-config'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 const theme = createTheme()
@@ -21,10 +23,15 @@ export default function SignIn() {
   const handleSubmit = (event) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    })
+    signInWithEmailAndPassword(firebaseAuth, data.get('email'), data.get('password')).then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      console.log(user)
+      
+    }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
   }
 
   return (

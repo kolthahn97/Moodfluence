@@ -5,8 +5,9 @@ import App from './App'
 import Register from 'pages/register/Register'
 import Login from 'pages/login/Login'
 import reportWebVitals from './reportWebVitals'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import { SnackbarProvider } from 'notistack'
+import BadURL from 'pages/error/BadURL'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
@@ -14,8 +15,10 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<App />} />
+        <Route path='/home' element={<App />} />
         <Route path='register' element={<Register />} />
         <Route path='login' element={<Login />} />
+        <Route path='*' element={<BadURL />} />
       </Routes>
     </BrowserRouter>
   </SnackbarProvider>
