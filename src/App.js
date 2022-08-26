@@ -2,18 +2,11 @@ import './App.scss';
 import { firebaseAuth } from 'firebase-config'
 import { onAuthStateChanged } from 'firebase/auth';
 
-function App() {
-  let displayName;
-  onAuthStateChanged(firebaseAuth, (user) => {
-    if (user) {
-      displayName = user.displayName
-    }
-  })
+export default function App({user}) {
+  console.log(user)
   return (
     <div className='App'>
-      {'HELLO ' + firebaseAuth.currentUser.displayName}
+      {user.displayName ? 'HELLO ' + user.displayName : 'Who are you?'}
     </div>
   );
 }
-
-export default App;

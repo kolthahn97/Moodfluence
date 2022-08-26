@@ -16,21 +16,32 @@ import Copyright from 'components/login/Copyright'
 import { firebaseAuth } from 'firebase-config'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { useNavigate } from 'react-router-dom'
+import { loginErrors } from 'components/login/LoginConfig'
+import { useSnackbar } from 'notistack'
 
 const theme = createTheme()
 
 export default function SignIn() {
+  const { enqueueSnackbar } = useSnackbar()
+  const navigate = useNavigate()
+
+  function errors(code, message) {
+    console.log(code + " " + message)
+    enqueueSnackbar(loginErrors[code] || message, { autoHideDuration: 8000, variant: 'error' })
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
+    // TODO: Google Sign in
     signInWithEmailAndPassword(firebaseAuth, data.get('email'), data.get('password')).then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
       console.log(user)
-      
+      navigate('/')
     }).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
+      errors(error.code, error.message)
     });
   }
 

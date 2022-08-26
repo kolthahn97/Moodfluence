@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
@@ -8,13 +8,23 @@ import reportWebVitals from './reportWebVitals'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import { SnackbarProvider } from 'notistack'
 import BadURL from 'pages/error/BadURL'
+import { onAuthStateChanged } from 'firebase/auth'
+import { firebaseAuth } from 'firebase-config'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  <SnackbarProvider preventDuplicate>
+  <Index />
+);
+
+function Index() {
+  const [ user, setUser ] = useState({})
+  onAuthStateChanged(firebaseAuth, (currentUser) => {
+    setUser(currentUser)
+  })
+  return <SnackbarProvider preventDuplicate>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<App />} />
+        <Route path='/' element={<App user={user} />} />
         <Route path='/home' element={<App />} />
         <Route path='register' element={<Register />} />
         <Route path='login' element={<Login />} />
@@ -22,7 +32,7 @@ root.render(
       </Routes>
     </BrowserRouter>
   </SnackbarProvider>
-);
+}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

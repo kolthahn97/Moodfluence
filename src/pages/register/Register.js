@@ -16,29 +16,45 @@ import Container from '@mui/material/Container'
 import Copyright from 'components/login/Copyright'
 import { loginErrors } from 'components/login/LoginConfig'
 import { firebaseAuth } from 'firebase-config'
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { createUserWithEmailAndPassword, deleteUser, updateProfile } from 'firebase/auth'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { useSnackbar } from 'notistack'
+import { useNavigate } from 'react-router-dom'
 
 const theme = createTheme()
 
 export default function Register() {
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar()
+  const navigate = useNavigate()
 
   function errors(code, message) {
     console.log(code + " " + message)
     enqueueSnackbar(loginErrors[code] || message, { autoHideDuration: 8000, variant: 'error' })
-    return
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
+    // TODO: Google Sign Registration
+    // Email login
     createUserWithEmailAndPassword(firebaseAuth, data.get('email'), data.get('password')).then((userCredential) => {
       const user = userCredential.user
+      // Update the recent user with a their displayName
       updateProfile(user, {
         displayName:data.get('displayName')
-      }).then(() => {console.log(user)}).catch((error) => errors(error.code, error.message))
+      }).then(() => {
+        // Successfully created and updated the user
+        console.log(user)
+        navigate('/')
+      }).catch((error) => {
+        // Delete the current user and error if displayName can't be updated
+        errors(error.code, error.message)
+        deleteUser(user).then(() => {
+          console.log('User deleted')
+        }).catch((error) => {
+          errors(error.code, error.message)
+        });
+      })
     }).catch((error) => {errors(error.code, error.message)});
   }
 
@@ -69,7 +85,7 @@ export default function Register() {
                   name='displayName'
                   label='Display Name'
                   id='displayName'
-                  autocomplete='display-name'
+                  autoComplete='display-name'
                 />
               </Grid>
               <Grid item xs={12}>
