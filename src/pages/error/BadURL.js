@@ -1,13 +1,14 @@
 import { Link, useLocation } from "react-router-dom"
 import { Typography } from '@mui/material'
 import { useSnackbar } from 'notistack'
+import styles from './BadURL.module.scss'
 
 export default function BadURL() {
     const { enqueueSnackbar } = useSnackbar()
     const location = useLocation()
     enqueueSnackbar(`'${location.pathname}' is not a valid URL`, { autoHideDuration: 8000, variant: 'error' })
     return (
-        <Typography component='h1' variant='h6' sx={{m:2}}>
+        <Typography component='h1' variant='h6' className={styles.locationWarning}>
             The page '{location.pathname}' doesn't exist. <Link to='/'>Go home?</Link>
         </Typography>
     );

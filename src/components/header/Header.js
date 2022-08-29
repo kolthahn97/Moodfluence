@@ -5,10 +5,11 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import styles from './Header.module.scss'
 
 export default function Header() {
   return (
-    <AppBar position="static">
+    <AppBar position="static" color='secondary'>
       <Toolbar>
         <IconButton
           size="large"
@@ -19,7 +20,7 @@ export default function Header() {
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography variant="h6" component="h1" className={styles.name}>
           News
         </Typography>
         <Button color="inherit">Login</Button>
