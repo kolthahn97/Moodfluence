@@ -1,6 +1,4 @@
 import './App.scss';
-import { firebaseAuth } from 'firebase-config'
-import { onAuthStateChanged } from 'firebase/auth';
 import Header from 'components/header/Header';
 
 export default function App({user}) {
