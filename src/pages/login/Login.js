@@ -46,7 +46,7 @@ export default function SignIn() {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <Box className={styles.container}>
+      <Box className={styles.container} sx={{mt: 8}}>
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           <LockOutlinedIcon />
         </Avatar>
@@ -82,7 +82,7 @@ export default function SignIn() {
             type="submit"
             fullWidth
             variant="contained"
-            className={styles.submitButton}
+            sx={{ mt: 3, mb: 2 }}
           >
             Sign In
           </Button>
@@ -91,7 +91,7 @@ export default function SignIn() {
             fullWidth
             variant='outlined'
             startIcon={<GoogleIcon />}
-            className={styles.googleSubmitButton}
+            sx={{ mb: 2 }}
           >
             Sign in with Google
           </Button>

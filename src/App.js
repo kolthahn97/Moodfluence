@@ -6,7 +6,7 @@ export default function App({user}) {
   return (
     <div className='App'>
       <Header />
-      {user.displayName ? 'HELLO ' + user.displayName : 'Who are you?'}
+      {user?.displayName ? 'HELLO ' + user?.displayName : 'Who are you?'}
     </div>
   );
 }

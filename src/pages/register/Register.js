@@ -58,14 +58,14 @@ export default function Register() {
   return (
     <Container component='main' maxWidth='xs'>
       <CssBaseline />
-      <Box className={styles.container}>
+      <Box className={styles.container} sx={{ mt: 8 }}>
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component='h1' variant='h5'>
           Sign up
         </Typography>
-        <Box component='form' onSubmit={handleSubmit} className={styles.formContainer}>
+        <Box component='form' onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -109,7 +109,7 @@ export default function Register() {
             type='submit'
             fullWidth
             variant='contained'
-            className={styles.submitButton}
+            sx={{ mt: 3, mb: 2 }}
           >
             Sign Up
           </Button>
@@ -118,7 +118,7 @@ export default function Register() {
             fullWidth
             variant='outlined'
             startIcon={<GoogleIcon />}
-            className={styles.googleSubmitButton}
+            sx={{ mb: 2 }}
           >
             Sign up with Google
           </Button>

@@ -8,7 +8,7 @@ export default function BadURL() {
     const location = useLocation()
     enqueueSnackbar(`'${location.pathname}' is not a valid URL`, { autoHideDuration: 8000, variant: 'error' })
     return (
-        <Typography component='h1' variant='h6' className={styles.locationWarning}>
+        <Typography component='h1' variant='h6' sx={{m:2}}>
             The page '{location.pathname}' doesn't exist. <Link to='/'>Go home?</Link>
         </Typography>
     );
