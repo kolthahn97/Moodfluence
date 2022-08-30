@@ -7,11 +7,13 @@ import Login from 'pages/login/Login'
 import reportWebVitals from './reportWebVitals'
 import BadURL from 'pages/error/BadURL'
 import { theme, darkTheme } from 'theme/MUI-Theme'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { SnackbarProvider } from 'notistack'
 import { onAuthStateChanged } from 'firebase/auth'
 import { firebaseAuth } from 'firebase-config'
 import { ThemeProvider } from '@mui/material'
+import Profile from 'pages/profile/Profile'
+import Header from 'components/header/Header'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
@@ -23,14 +25,19 @@ function Index() {
   onAuthStateChanged(firebaseAuth, (currentUser) => {
     setUser(currentUser)
   })
+
+  const home = <App user={user} />
+
   return <ThemeProvider theme={theme}>
       <SnackbarProvider preventDuplicate>
         <BrowserRouter>
+          <Header user={user} />  
           <Routes>
-            <Route path='/' element={<App user={user} />} />
-            <Route path='/home' element={<App />} />
+            <Route path={'/'} element={home} />
+            <Route path='home' element={home} />
             <Route path='register' element={<Register />} />
             <Route path='login' element={<Login />} />
+            <Route path='profile' element={<Profile />} />
             <Route path='*' element={<BadURL />} />
           </Routes>
         </BrowserRouter>
