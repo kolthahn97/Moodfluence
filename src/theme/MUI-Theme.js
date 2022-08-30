@@ -1,9 +1,15 @@
-import { green } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
+import variables from "./Theme.scss"
 
 export const theme = createTheme({
     palette: {
-        main: green
+        type: 'light',
+        primary: {
+            main: variables.primaryColor,
+        },
+        secondary: {
+            main: variables.secondaryColor,
+        }
     },
 });
 
