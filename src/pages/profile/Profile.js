@@ -1,7 +1,8 @@
-import { Grid, Tab, Tabs, Typography } from '@mui/material'
+import { Grid, Tab, Tabs, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system';
 import UserAvatar from 'components/avatar/UserAvatar';
 import { useState } from 'react';
+import EditProfileTab from './EditProfileTab';
 import styles from './Profile.module.scss'
 
 function TabPanel(props) {
@@ -43,6 +44,7 @@ export default function Profile({user}) {
         className='profile'
         justifyContent='center'
         alignItems='center'
+        sx={{px:2}}
     >
         <Grid item xs={12} md={9} lg={6}>
             <Grid container sx={{my:3}}>
@@ -51,12 +53,12 @@ export default function Profile({user}) {
                 </Grid>
             </Grid>
             <Tabs value={tabValue} onChange={handleChange} aria-label='Profile Tabs'>
-                <Tab label='Item One' {...a11yProps(0)} />
+                <Tab label='Edit Profile' {...a11yProps(0)} />
                 <Tab label='Item Two' {...a11yProps(1)} />
                 <Tab label='Item Three' {...a11yProps(2)} />
             </Tabs>
             <TabPanel value={tabValue} index={0}>
-                Item One
+                <EditProfileTab user={user} />
             </TabPanel>
             <TabPanel value={tabValue} index={1}>
                 Item Two
