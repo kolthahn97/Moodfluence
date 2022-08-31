@@ -33,11 +33,11 @@ function Index() {
         <BrowserRouter>
           <Header user={user} />  
           <Routes>
-            <Route path={'/'} element={home} />
+            <Route path='/' element={home} />
             <Route path='home' element={home} />
             <Route path='register' element={<Register />} />
             <Route path='login' element={<Login />} />
-            <Route path='profile' element={<Profile />} />
+            <Route path='profile' element={<Profile user={user} />} />
             <Route path='*' element={<BadURL />} />
           </Routes>
         </BrowserRouter>

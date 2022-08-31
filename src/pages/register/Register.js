@@ -38,7 +38,7 @@ export default function Register() {
       const user = userCredential.user
       // Update the recent user with a their displayName
       updateProfile(user, {
-        displayName:data.get('displayName')
+        displayName:`${data.get('firstName')} ${data.get('lastName')}`
       }).then(() => {
         // Successfully created and updated the user
         console.log(user)
@@ -67,14 +67,25 @@ export default function Register() {
         </Typography>
         <Box component='form' onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="given-name"
+                name="firstName"
+                required
+                fullWidth
+                id="firstName"
+                label="First Name"
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
               <TextField
                 required
                 fullWidth
-                name='displayName'
-                label='Display Name'
-                id='displayName'
-                autoComplete='display-name'
+                id="lastName"
+                label="Last Name"
+                name="lastName"
+                autoComplete="family-name"
               />
             </Grid>
             <Grid item xs={12}>

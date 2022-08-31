@@ -13,6 +13,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { getAuth, signOut } from 'firebase/auth';
 import styles from './Header.module.scss'
+import UserAvatar from 'components/avatar/UserAvatar';
 
 const pagesToIgnore = [
   '/login',
@@ -51,6 +52,8 @@ export default function Header({user}) {
     })
   }
 
+  console.log(user)
+
   return (
     <>
       {!pagesToIgnore.includes(pageName) &&
@@ -74,13 +77,13 @@ export default function Header({user}) {
               {user ? 
                 <IconButton
                   size='large'
-                  aria-label={`${user.displayName}'s Account`}
+                  aria-label={`${user?.displayName}'s Account`}
                   aria-controls='menu-appbar'
                   aria-haspopup='true'
                   onClick={handleMenu}
                   color='inherit'
                 >
-                  <AccountCircle />
+                  <UserAvatar user={user} />
                 </IconButton> 
                   :
                 <Button color='inherit' href='login'>Login</Button>
