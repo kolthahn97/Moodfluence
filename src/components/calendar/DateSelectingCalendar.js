@@ -1,22 +1,23 @@
-import { TextField } from "@mui/material";
-import { LocalizationProvider, StaticDatePicker } from "@mui/x-date-pickers";
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import moment from "moment";
-import { useState } from "react";
+import { TextField } from '@mui/material'
+import { LocalizationProvider, StaticDatePicker } from '@mui/x-date-pickers'
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+import moment from 'moment'
+import { useState } from 'react'
 
 export default function DateSelectingCalendar() {
-  const [value, setValue] = useState(moment())
+	const [value, setValue] = useState(moment())
+  console.log(value)
 
-  return (
-    <LocalizationProvider dateAdapter={AdapterMoment}>
-      <StaticDatePicker 
-        displayStaticWrapperAs="desktop"
-        value={value}
-        onChange={(newValue) => {
-          setValue(newValue);
-        }}
-        renderInput={(params) => <TextField {...params} />}
-      />
-    </LocalizationProvider>
-  );
+	return (
+		<LocalizationProvider dateAdapter={AdapterMoment}>
+			<StaticDatePicker
+				displayStaticWrapperAs='desktop'
+				value={value}
+				onChange={(newValue) => {
+					setValue(newValue)
+				}}
+				renderInput={(params) => <TextField {...params} />}
+			/>
+		</LocalizationProvider>
+	)
 }
