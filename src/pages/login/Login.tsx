@@ -12,33 +12,28 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import GoogleIcon from '@mui/icons-material/Google'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
-import Copyright from 'components/login/Copyright'
-import { firebaseAuth } from 'firebase-config'
+import Copyright from 'src/components/login/Copyright'
+import { firebaseAuth } from 'src/firebase-config'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
-import { loginErrors } from 'components/login/LoginConfig'
 import { useSnackbar } from 'notistack'
 import styles from './Login.module.scss'
+import { errors } from 'src/components/helperFunctions'
 
 export default function SignIn() {
   const { enqueueSnackbar } = useSnackbar()
   const navigate = useNavigate()
 
-  function errors(code, message) {
-    console.log(code + " " + message)
-    enqueueSnackbar(loginErrors[code] || message, { autoHideDuration: 8000, variant: 'error' })
-  }
-
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: Event) => {
     event.preventDefault()
-    const data = new FormData(event.currentTarget)
+    const data = new FormData(event.currentTarget as HTMLFormElement)
     // TODO: Google Sign in
-    signInWithEmailAndPassword(firebaseAuth, data.get('email'), data.get('password')).then((userCredential) => {
+    signInWithEmailAndPassword(firebaseAuth, data.get('email') as string, data.get('password') as string).then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
       navigate('/')
     }).catch((error) => {
-      errors(error.code, error.message)
+      errors(error.code, error.message, enqueueSnackbar)
     });
   }
 
@@ -52,7 +47,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={handleSubmit as unknown as React.FormEventHandler<HTMLFormElement>} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required
@@ -101,7 +96,7 @@ export default function SignIn() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="register" variant="body2">
+              <Link href="/register" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

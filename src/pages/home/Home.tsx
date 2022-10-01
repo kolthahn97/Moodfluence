@@ -1,7 +1,12 @@
 import { Grid } from '@mui/material'
-import DateSelectingCalendar from 'components/calendar/DateSelectingCalendar'
+import DateSelectingCalendar from 'src/components/calendar/DateSelectingCalendar'
+import { User } from 'firebase/auth'
 
-export default function Home({ user }) {
+interface HomeProps {
+	user: User | null
+}
+
+export default function Home({ user }: HomeProps) {
 	return (
 		<Grid container>
 			<Grid item sx={{ display: { xs: 'none', lg: 'inline' } }}>

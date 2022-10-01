@@ -11,9 +11,6 @@ import Grid from '@mui/material/Grid'
 import Link from '@mui/material/Link'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import Copyright from 'components/login/Copyright'
-import { loginErrors } from 'components/login/LoginConfig'
-import { firebaseAuth } from 'firebase-config'
 import {
 	createUserWithEmailAndPassword,
 	deleteUser,
@@ -22,6 +19,9 @@ import {
 import { useSnackbar } from 'notistack'
 import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { errors } from 'src/components/helperFunctions'
+import Copyright from 'src/components/login/Copyright'
+import { firebaseAuth } from 'src/firebase-config'
 
 import styles from './Register.module.scss'
 
@@ -29,23 +29,15 @@ export default function Register() {
 	const { enqueueSnackbar } = useSnackbar()
 	const navigate = useNavigate()
 
-	function errors(code, message) {
-		console.log(code + ' ' + message)
-		enqueueSnackbar(loginErrors[code] || message, {
-			autoHideDuration: 8000,
-			variant: 'error',
-		})
-	}
-
-	const handleSubmit = (event) => {
+	const handleSubmit = (event: React.SyntheticEvent) => {
 		event.preventDefault()
-		const data = new FormData(event.currentTarget)
+		const data = new FormData(event.currentTarget as HTMLFormElement)
 		// TODO: Google Sign Registration
 		// Email login
 		createUserWithEmailAndPassword(
 			firebaseAuth,
-			data.get('email'),
-			data.get('password')
+			data.get('email') as string,
+			data.get('password') as string
 		)
 			.then((userCredential) => {
 				const user = userCredential.user
@@ -60,18 +52,18 @@ export default function Register() {
 					})
 					.catch((error) => {
 						// Delete the current user and error if displayName can't be updated
-						errors(error.code, error.message)
+						errors(error.code, error.message, enqueueSnackbar)
 						deleteUser(user)
 							.then(() => {
 								console.log('User deleted')
 							})
 							.catch((error) => {
-								errors(error.code, error.message)
+								errors(error.code, error.message, enqueueSnackbar)
 							})
 					})
 			})
 			.catch((error) => {
-				errors(error.code, error.message)
+				errors(error.code, error.message, enqueueSnackbar)
 			})
 	}
 

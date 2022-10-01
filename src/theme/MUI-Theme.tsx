@@ -3,7 +3,6 @@ import variables from "./Theme.scss"
 
 export const theme = createTheme({
     palette: {
-        type: 'light',
         primary: {
             main: variables.primaryColor,
         },

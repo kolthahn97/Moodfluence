@@ -8,23 +8,28 @@ import {
 	Toolbar,
 	Typography,
 } from '@mui/material'
-import UserAvatar from 'components/avatar/UserAvatar'
-import SideMenu from 'components/sideMenu/SideMenu'
-import { getAuth, signOut } from 'firebase/auth'
+import UserAvatar from 'src/components/avatar/UserAvatar'
+import SideMenu from 'src/components/sideMenu/SideMenu'
+import { getAuth, signOut, User } from 'firebase/auth'
 import { useSnackbar } from 'notistack'
-import * as React from 'react'
-import { useState } from 'react'
+import { MouseEventHandler, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import styles from './Header.module.scss'
 
-export default function Header({ user, pathways, children }) {
+interface HeaderProps {
+	user: User | null
+	pathways: any
+	children: JSX.Element
+}
+
+export default function Header({ user, pathways, children }: HeaderProps) {
 	const navigate = useNavigate()
 	const [openSide, setOpenSide] = useState(false)
-	const [anchorEl, setAnchorEl] = useState(null)
+	const [anchorEl, setAnchorEl] = useState<any>(null)
 	const { enqueueSnackbar } = useSnackbar()
 
-	const handleMenu = (event) => {
+	const handleMenu = (event: Event) => {
 		setAnchorEl(event.currentTarget)
 	}
 
@@ -76,8 +81,7 @@ export default function Header({ user, pathways, children }) {
 							aria-label={`${user?.displayName}'s Account`}
 							aria-controls='menu-appbar'
 							aria-haspopup='true'
-							onClick={handleMenu}
-							color='inherit'
+							onClick={handleMenu as unknown as MouseEventHandler}
 						>
 							<UserAvatar user={user} />
 						</IconButton>

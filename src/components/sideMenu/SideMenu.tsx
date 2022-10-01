@@ -9,7 +9,14 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import { styled, useTheme } from '@mui/material/styles'
+import { Pathway } from 'src/App'
 import { useNavigate } from 'react-router-dom'
+
+interface SideMenuProps {
+	menuIsOpen: boolean
+	setIsOpen: any
+	pathways: Pathway[]
+}
 
 const drawerWidth = 240
 
@@ -22,9 +29,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 	justifyContent: 'flex-end',
 }))
 
-export default function SideMenu({ menuIsOpen, setIsOpen, pathways }) {
+export default function SideMenu({ menuIsOpen, setIsOpen, pathways }: SideMenuProps) {
 	const theme = useTheme()
-  const navigate = useNavigate()
+	const navigate = useNavigate()
 
 	return (
 		<>
@@ -53,11 +60,13 @@ export default function SideMenu({ menuIsOpen, setIsOpen, pathways }) {
 				<Divider />
 				<List>
 					{pathways.map((pathway) => (
-						<ListItem key={pathway.title} disablePadding onClick={() => navigate(pathway.path)}>
+						<ListItem
+							key={pathway.title}
+							disablePadding
+							onClick={() => navigate(pathway.path)}
+						>
 							<ListItemButton>
-								<ListItemIcon>
-									{pathway.icon}
-								</ListItemIcon>
+								<ListItemIcon>{pathway.icon}</ListItemIcon>
 								<ListItemText primary={pathway.title} />
 							</ListItemButton>
 						</ListItem>
