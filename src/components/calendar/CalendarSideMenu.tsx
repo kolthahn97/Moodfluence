@@ -1,20 +1,28 @@
+import './Calendar.scss'
+
 import { Box } from '@mui/material'
 import moment, { Moment } from 'moment'
 import { Dispatch, SetStateAction } from 'react'
-import styles from './Calendar.module.scss'
 
 import DateSelectingCalendar from './DateSelectingCalendar'
 import DefaultCalendarChips from './DefaultCalendarChips'
 
+export enum ViewLevel {
+	Day,
+	Week,
+	Month,
+	Year,
+}
+
 export interface View {
-	view: 'day' | 'week' | 'month' | 'year'
-	setView: Dispatch<SetStateAction<'day' | 'week' | 'month' | 'year'>>
+	view: ViewLevel
+	setView: Dispatch<SetStateAction<ViewLevel>>
 }
 
 export interface Calendar {
 	selectedDate: Moment
 	setSelectedDate: (selectedDate: Moment) => void
-	useView: View 
+	useView: View
 	minDate: Moment
 	maxDate: Moment
 }
@@ -25,7 +33,7 @@ interface CalendarSideMenuProps {
 
 export default function CalendarSideMenu({ calendar }: CalendarSideMenuProps) {
 	return (
-		<Box className={styles.panel}>
+		<Box className='panel'>
 			<DefaultCalendarChips calendar={calendar} />
 			<DateSelectingCalendar
 				selectedDate={calendar.selectedDate}

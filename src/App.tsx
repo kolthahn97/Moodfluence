@@ -11,7 +11,7 @@ import Home from 'src/pages/home/Home'
 import Login from 'src/pages/login/Login'
 import Profile from 'src/pages/profile/Profile'
 import Register from 'src/pages/register/Register'
-import { Calendar, View } from './components/calendar/CalendarSideMenu'
+import { Calendar, View, ViewLevel } from './components/calendar/CalendarSideMenu'
 
 export interface Pathway {
 	path: string
@@ -22,7 +22,7 @@ export interface Pathway {
 
 export default function App({ user }: { user: User | null }) {
 	const [selectedDate, setSelectedDate] = useState<Moment>(moment())
-	const [view, setView] = useState<'day' | 'week' | 'month' | 'year'>('month')
+	const [view, setView] = useState<ViewLevel>(ViewLevel.Month)
 	const useView = {view, setView}
 	
 	const minDate = moment().subtract(12, 'M').startOf('month') // TODO: Change this to start of month BEFORE any available data

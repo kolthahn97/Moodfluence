@@ -1,31 +1,31 @@
-import { TextField } from '@mui/material'
-import { LocalizationProvider, StaticDatePicker } from '@mui/x-date-pickers'
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
-import moment, { Moment } from 'moment'
+import { Container, Typography } from '@mui/material'
+import Calendar from 'react-calendar'
+import moment from 'moment'
 
-import { Calendar } from './CalendarSideMenu'
+import { Calendar as CalendarType } from './CalendarSideMenu'
 
 export default function DateSelectingCalendar({
 	selectedDate,
 	setSelectedDate,
 	minDate,
 	maxDate,
-	useView
-}: Calendar) {
-	const {view, setView} = useView
+	useView,
+}: CalendarType) {
+	const { view, setView } = useView
+	const date = selectedDate.toDate()
+
 	return (
-		<LocalizationProvider dateAdapter={AdapterMoment}>
-			<StaticDatePicker
-				displayStaticWrapperAs='desktop'
-				value={selectedDate}
-				onChange={(newValue: Moment | null) => {
-					setSelectedDate(newValue || moment())
-				}}
-				renderInput={(props) => <TextField {...props} />}
-				minDate={minDate}
-				maxDate={maxDate}
+		<Container className='date-selecting-calendar-container'>
+			<Calendar
+				onChange={(newDate: Date) =>
+					setSelectedDate(moment(newDate || new Date()))
+				}
+				value={date}
+				formatShortWeekday={(locale: string, date: Date) => ['S','M','T','W','T','F','S'][date.getDay()]}
+				calendarType='US'
+				view='month'
 			/>
-			
-		</LocalizationProvider>
+			<Typography>Selected Date: {date.toDateString()}</Typography>
+		</Container>
 	)
 }

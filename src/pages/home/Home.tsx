@@ -11,14 +11,17 @@ interface HomeProps {
 }
 
 export default function Home({ user, calendar }: HomeProps) {
+	const { useView } = calendar
+	const { view } = useView
+
 	return (
 		<Grid container sx={{ height: '100%' }}>
-			<Grid item sx={{ display: { xs: 'none', lg: 'inline' }, height: '100%' }} xs={3.5}>
+			<Grid item sx={{ display: { xs: 'none', lg: 'inline' }, height: '100%' }} xs={3}>
 				<CalendarSideMenu calendar={calendar} />
 			</Grid>
-			<Grid item xs={12} lg={8.5}>
+			<Grid item xs={12} lg={9}>
 				<Grid item>
-					{user?.displayName ? 'HELLO ' + user?.displayName : 'Who are you?'}
+					{user?.displayName ? `HELLO ${user?.displayName} with view ${view}` : 'Who are you?'}
 				</Grid>
 				<TrackerCalendar calendar={calendar} />
 			</Grid>

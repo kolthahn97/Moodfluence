@@ -15,12 +15,16 @@ export default function TrackerCalendar({ calendar }: TrackerCalendarProps) {
 	const date = selectedDate.toDate()
 
 	return (
-		<Container className='calendar-container'>
+		<Container className='tracker-calendar-container'>
 			<Calendar
 				onChange={(newDate: Date) =>
 					setSelectedDate(moment(newDate || new Date()))
 				}
 				value={date}
+				showFixedNumberOfWeeks
+				calendarType='US'
+				maxDate={selectedDate.endOf('M').toDate()}
+				minDate={selectedDate.startOf('M').toDate()}
 			/>
 			<Typography>Selected Date: {date.toDateString()}</Typography>
 		</Container>
