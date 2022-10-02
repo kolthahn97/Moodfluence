@@ -22,6 +22,7 @@
     "moment-timezone": "^0.5.37",
     "notistack": "^2.0.5",
     "react": "^18.2.0",
+    "react-calendar": "^3.9.0",
     "react-dom": "^18.2.0",
     "react-moment": "^1.1.2",
     "react-router-dom": "^6.3.0",
@@ -67,6 +68,7 @@
   "homepage": ".",
   "devDependencies": {
     "@types/node": "^18.7.23",
+    "@types/react-calendar": "^3.5.3",
     "sass": "^1.54.5",
     "ts-loader": "^9.4.1",
     "typescript": "^4.8.4"

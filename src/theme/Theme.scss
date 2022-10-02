@@ -1,6 +1,7 @@
 $primary: #3D405B;
 $secondary: #81B29A;
 $white: #FFFFFF;
+$lightestGrey: #EEEEEE;
 
 :export {
     primaryColor: $primary;
@@ -12,3 +13,4 @@ $white: #FFFFFF;
     flex-direction: column;
     align-items: center;
 }
+
